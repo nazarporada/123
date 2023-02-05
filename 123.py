@@ -1,16 +1,14 @@
-import requests
-import os
 import datetime
 from datetime import datetime
 
 import pygame
+import requests
 import speech_recognition as sr
+import wikipedia
 from gtts import gTTS
 
 
-def talk(words):
-    print(words)
-    os.system("say " + words)
+
 
 
 tts = gTTS("Доброго дня", lang='uk')
@@ -78,6 +76,20 @@ def makeSomething(zadanie):
         pygame.mixer.init()
         pygame.mixer.music.load('output8.mp3')
         pygame.mixer.music.play()
+    elif 'київ' in zadanie:
+        kyiv = wikipedia.summary("kyiv", sentences=2)
+        tts9 = gTTS(kyiv, lang='en')
+        tts9.save('output9.mp3')
+        pygame.mixer.init()
+        pygame.mixer.music.load('output9.mp3')
+        pygame.mixer.music.play()
+    elif 'globallogic' in zadanie:
+        gl = wikipedia.summary("global logic", sentences=2)
+        tts10 = gTTS(gl, lang='en')
+        tts10.save('output10.mp3')
+        pygame.mixer.init()
+        pygame.mixer.music.load('output10.mp3')
+        pygame.mixer.music.play()
     elif 'яка погода' in zadanie:
 
         s_city = "Lviv, UA"
@@ -107,8 +119,9 @@ def makeSomething(zadanie):
             pass
 
         if data['main']['temp'] < 0:
-            tts7 = gTTS(data['weather'][0]['description'] + str(round(data['main']['temp'])) + str("градуси нижче нуля"),
-                        lang='uk')
+            tts7 = gTTS(
+                data['weather'][0]['description'] + str(round(data['main']['temp'])) + str("градуси нижче нуля"),
+                lang='uk')
             tts7.save('output7.mp3')
             pygame.mixer.init()
             pygame.mixer.music.load('output7.mp3')
