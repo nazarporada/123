@@ -79,7 +79,7 @@ def makeSomething(zadanie):
     elif 'яка погода' in zadanie:
 
         s_city = "Lviv, UA"
-        city_id = 702550
+        city_id = 0
         appid = "d972ec87c4d3b913ea5d14a1a6a9ac34"
         try:
             res = requests.get("http://api.openweathermap.org/data/2.5/find",
@@ -100,17 +100,24 @@ def makeSomething(zadanie):
             data = res.json()
             print("conditions:", data['weather'][0]['description'])
             print("temp:", data['main']['temp'])
-            print("temp_min:", data['main']['temp_min'])
-            print("temp_max:", data['main']['temp_max'])
         except Exception as e:
             print("Exception (weather):", e)
             pass
 
-        tts7 = gTTS(data['weather'][0]['description'] + str(data['main']['temp']), lang='uk')
-        tts7.save('output7.mp3')
-        pygame.mixer.init()
-        pygame.mixer.music.load('output7.mp3')
-        pygame.mixer.music.play()
+        if data['main']['temp'] < 0:
+            tts7 = gTTS(data['weather'][0]['description'] + str(round(data['main']['temp'])) + str("градуси нижче нуля"),
+                        lang='uk')
+            tts7.save('output7.mp3')
+            pygame.mixer.init()
+            pygame.mixer.music.load('output7.mp3')
+            pygame.mixer.music.play()
+        else:
+            tts7 = gTTS(data['weather'][0]['description'] + str(round(data['main']['temp'])) + str("градуси вище нуля"),
+                        lang='uk')
+            tts7.save('output7.mp3')
+            pygame.mixer.init()
+            pygame.mixer.music.load('output7.mp3')
+            pygame.mixer.music.play()
 
 
 while True:
