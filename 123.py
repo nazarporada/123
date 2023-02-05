@@ -1,5 +1,6 @@
 import requests
 import os
+import datetime
 from datetime import datetime
 
 import pygame
@@ -63,18 +64,19 @@ def makeSomething(zadanie):
         pygame.mixer.init()
         pygame.mixer.music.load('output4.mp3')
         pygame.mixer.music.play()
-    elif 'ти бидло' in zadanie:
-        tts5 = gTTS("Ні, це Андрій Калита бидло, а не я", lang='uk')
-        tts5.save('output5.mp3')
-        pygame.mixer.init()
-        pygame.mixer.music.load('output5.mp3')
-        pygame.mixer.music.play()
     elif 'котра година' in zadanie:
-        time = datetime.datetime.now().strftime('%I:%M %p')
+        time = datetime.now().strftime("%H:%M")
         tts6 = gTTS(time, lang='uk')
         tts6.save('output6.mp3')
         pygame.mixer.init()
         pygame.mixer.music.load('output6.mp3')
+        pygame.mixer.music.play()
+    elif 'який сьогодні день' in zadanie:
+        time = datetime.now().strftime("%d/%m/%Y")
+        tts8 = gTTS("сьогодні" + time, lang='uk')
+        tts8.save('output8.mp3')
+        pygame.mixer.init()
+        pygame.mixer.music.load('output8.mp3')
         pygame.mixer.music.play()
     elif 'яка погода' in zadanie:
 
